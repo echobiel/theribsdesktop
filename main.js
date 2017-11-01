@@ -13,11 +13,11 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 850, height: 660, minWidth:850, minHeight:660})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'telas/index.ejs'),
     protocol: 'file:',
     slashes: true
   }))
