@@ -1,6 +1,13 @@
 *{
     margin: 0;
     padding: 0;
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
 }
 
 body{
@@ -22,36 +29,24 @@ header{
 }
 
 header img{
-    width: 100px;
-    height: 90px;
+    width: 125px;
+    height: 88px;
     margin-left: 5px;
     margin-top: 5px;
     z-index: 2;
     position: absolute;
 }
 
-#backgroundLogo{
-    width: 100px;
-    height: 90px;
-    margin-left: 5px;
-    margin-top: 5px;
-    position: absolute;
-    border-radius: 50px;
-    z-index: 1;
-    background-color: brown;
-    box-shadow: 1px 1px 12px #000;
-}
-
 header span{
-    width:87%;
+    width: 100%;
     float: left;
     height: 90px;
     text-align: center;
     line-height: 90px;
     margin-top: 5px;
-    color: aliceblue;
-    padding-left: 105px;
+    color: #fff;
     font-size: 42px;
+    font-family:'Open Sans', sans-serif;
 }
 section{
     background-color: #fff;
@@ -63,6 +58,7 @@ section h1{
     text-align: center;
     line-height: 50px;
     padding-bottom: 50px;
+    font-family:'Open Sans', sans-serif;
 }
 footer{
     width: 100%;
@@ -79,15 +75,42 @@ footer{
     margin-right: auto;
 }
 
-#btnPredio{
-    width:200px;
-    height: 50px;
-    margin-left: 100px;
+#botao_voltar{
+    width:80px;
+    height:80px;
+    border-radius:100%;
+    background-color:#222;
+    margin-top:10px;
+    left:15px;
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    position:absolute;
 }
 
-#btnRestaurante{
+#botao_voltar img{
+    width:40px;
+    height:40px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.btns{
     width:200px;
     height: 50px;
+    border:0px;
     margin-left: 100px;
-    margin-top: 20px;
+    background-color: #222;
+    color:#fff;
+    cursor:pointer;
+    font-family:'Open Sans', sans-serif;
+}
+
+.btns:last-child{
+    margin-top:10px;
+}
+
+.btns:hover, #botao_voltar:hover{
+    -webkit-transition:0.3s;
+    background-color:#3f3f3f;
 }
