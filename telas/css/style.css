@@ -50,6 +50,7 @@ header span{
 }
 section{
     background-color: #fff;
+    overflow:hidden;
     width: 100%;
 }
 section h1{
