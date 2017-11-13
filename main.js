@@ -13,7 +13,7 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1050, height: 660, minWidth:1050, minHeight:660, icon: path.join(__dirname, 'telas/icone/icon.png'), backgroundColor: '#222'})
+  mainWindow = new BrowserWindow({width: 1050, height: 660, minWidth:1050, minHeight:660, icon: path.join(__dirname, 'telas/icone/icon.png'), backgroundColor: '#676b80'})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>The Ribs Steakhouse</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/preparacao_pedido.css">
+        <link href="fontes/openSans" rel="stylesheet">
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+        <script>
+            // You can also require other files to run in this process
+            require('./renderer.js')
+        </script>
+        <script type="text/javascript">
+
+            var tamanhoJanelaAlturaCorpo;
+
+            $(document).ready(function(){
+                configurarTamanhos();
+            });
+
+            function configurarTamanhos(){
+                tamanhoJanelaAlturaBody = $(window).height() - $("header").height() - $("footer").height() - ($(window).height() / 100)*2;
+                tamanhoJanelaAlturaCorpo = (tamanhoJanelaAlturaBody - $("#corpo").height()) / 2;
+
+                $("section").css({"height":tamanhoJanelaAlturaBody});
+                $("#div_emPreparacao").css({"height":tamanhoJanelaAlturaBody});
+                $("#info_pedido").css({"height":tamanhoJanelaAlturaBody});
+                $("#linha_divisoria").css({"height":tamanhoJanelaAlturaBody});
+            }
+
+            $(window).resize(function(){
+                configurarTamanhos();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="esqueleto">
+            <header>
+                <img src="arquivos/logo.png"/>
+                <span>The Ribs Steakhouse</span>
+            </header>
+
+            <section>
+                <a href="escolha_restaurante.ejs">
+                    <div id="botao_voltar" title="Voltar a página anterior.">
+                        <img src="img/voltar.png" alt="">
+                    </div>
+                </a>
+                <div id="corpo">
+                    <!--Em preparação-->
+                    <div id="div_emPreparacao">
+                        <!--Titulo-->
+                        <div class="tituloInfo_caixa">
+                            <span class="titulo">Em preparação</span>
+                        </div>
+                        <!--Informação reduzida pedido-->
+                        <div class="div_infoReduzidaPed">
+                            <!--Linha enfeite-->
+                            <div class="linha_esquerda">
+                            </div>
+                            <!--Mesa horário-->
+                            <div class="div_mesaHorario">
+                                <!--Mesa-->
+                                <div class="mesaHorario">
+                                    Mesa 1 - 5 produtos
+                                </div>
+                                <!--Horario-->
+                                <div class="mesaHorario">
+                                    14:54
+                                </div>
+                            </div>
+                            <!--Botão concluido-->
+                            <div class="div_btnConcluir">
+                                <a href="">
+                                    <div class="btnConcluir" title="Concluir pedido">
+                                        <img src="img/pedido_completo.png" alt="">
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Divisor-->
+                    <div id="linha_divisoria">
+                    </div>
+                    <!--Informações detalhadas pedido-->
+                    <div id="info_pedido">
+                        <!--Titulo-->
+                        <div class="tituloInfo_caixa">
+                            <!--Titulos-->
+                            <div class="tituloInfo">
+                                <span class="centralizar_texto">Nome do Garçom</span>
+                            </div>
+                            <div class="divisoria">
+                            </div>
+                            <div class="tituloInfoPequeno">
+                                <span class="centralizar_texto">Mesa</span>
+                            </div>
+                            <!--Conteudo-->
+                            <div class="conteudoInfo">
+                                <span class="centralizar_texto">Ata</span>
+                            </div>
+                            <div class="divisoriaB">
+                            </div>
+                            <div class="conteudoInfoPequeno">
+                                <span class="centralizar_texto">1</span>
+                            </div>
+                        </div>
+                        <!--Quantidade e nome do item-->
+                        <div class="tituloInfo_caixa">
+                            <!--Titulos-->
+                            <div class="tituloInfoPequenoQntI">
+                                <span class="centralizar_texto">Quantidade</span>
+                            </div>
+                            <div class="divisoria">
+                            </div>
+                            <div class="tituloInfoQntI">
+                                <span class="centralizar_texto">Nome Produto</span>
+                            </div>
+                            <!--Conteudo-->
+                            <div class="conteudoInfoPequeno">
+                                <span class="centralizar_texto">5</span>
+                            </div>
+                            <div class="divisoriaB">
+                            </div>
+                            <div class="conteudoInfo">
+                                <span class="centralizar_texto">Batata</span>
+                            </div>
+                        </div>
+                        <!--Ingredientes-->
+                        <div class="div_ingredientes">
+                            <!--Titulos-->
+                            <div class="tituloIng">
+                                <span class="centralizar_texto">Ingredientes</span>
+                            </div>
+                            <!--Ingredientes contidos-->
+                            <div class="div_ingredientesNomes">
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                                <p>2x Tasl tasdas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+
+            </footer>
+        </div>
+
+
+    </body>
+</html>
