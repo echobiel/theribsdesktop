@@ -22,6 +22,11 @@
     background: #dad7d7;
 }
 
+a{
+    text-decoration: none;
+    outline: none;
+}
+
 
 /*Serve para tirar as bordas azuis no chrome*/
 textarea:focus, input:focus, select:focus {
@@ -67,7 +72,7 @@ header span{
 }
 section{
     background-color: #fff;
-    overflow:hidden;
+    overflow:auto;
     width: 100%;
 }
 section h1{
@@ -75,7 +80,6 @@ section h1{
     height: 50px;
     text-align: center;
     line-height: 50px;
-    padding-bottom: 50px;
     font-family:'Open Sans', sans-serif;
 }
 footer{
@@ -116,14 +120,24 @@ footer{
 }
 
 .btns{
-    width:200px;
+    width:320px;
     height: 50px;
     border:0px;
-    margin-left: 100px;
+    display:flex;
+    align-items:center;
+    text-align:center;
+    margin-left: auto;
+    margin-right:auto;
     background-color: #676b80;
     color:#fff;
     cursor:pointer;
+    font-size: 15px;
     font-family:'Open Sans', sans-serif;
+}
+
+.centralizar_texto{
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .btns:last-child{

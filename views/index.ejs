@@ -6,10 +6,6 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link href="fontes/openSans" rel="stylesheet">
         <script type="text/javascript" src="js/jquery-3.2.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
-        <script>
-            // You can also require other files to run in this process
-            require('./renderer.js')
-        </script>
         <script type="text/javascript">
 
             var tamanhoJanelaAlturaCorpo;
@@ -20,7 +16,7 @@
 
             function configurarTamanhos(){
                 tamanhoJanelaAlturaBody = $(window).height() - $("header").height() - $("footer").height() - ($(window).height() / 100)*2;
-                tamanhoJanelaAlturaCorpo = (tamanhoJanelaAlturaBody - $("#corpo").height()) / 2;
+                tamanhoJanelaAlturaCorpo = (tamanhoJanelaAlturaBody - $("#corpo").height()) / 2.3;
 
                 $("section").css({"height":tamanhoJanelaAlturaBody});
                 $("#corpo").css({"padding-top":tamanhoJanelaAlturaCorpo});
@@ -42,9 +38,9 @@
                 <div id="corpo">
                     <h1>Selecione uma unidade:</h1>
                     <div id="divBtn">
-                        <button class="btns" title="Em produção." style="background-color:red">Prédio Comercial</button>
+                        <button class="btns" title="Em produção." style="background-color:red"><span class="centralizar_texto">Prédio Comercial</span></button>
                         <a href="escolha_restaurante.ejs">
-                            <button class="btns">Restaurante</button>
+                            <button class="btns"><span class="centralizar_texto">Restaurante</span></button>
                         </a>
                     </div>
                 </div>
