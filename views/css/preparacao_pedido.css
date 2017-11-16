@@ -13,6 +13,7 @@
 .tituloInfo_caixa{
     width:100%;
     height:60px;
+    cursor:pointer;
     background-color:#3b3d48;
     text-align:center;
 }
@@ -86,9 +87,10 @@
 
 .tituloIng{
     width:100%;
-    height:40px;
-    display:flex;
-    align-items:center;
+    height:0px;
+    line-height:40px;
+    text-align:center;
+    overflow:hidden;
     background-color:#5d606f;
     float:left;
 
@@ -112,7 +114,7 @@ p{
 
 .div_ingredientesNomes{
     width:100%;
-    height:250px;
+    height:0px;
     background-color:#f9f9f9;
     overflow:auto;
 

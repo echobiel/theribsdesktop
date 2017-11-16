@@ -4,11 +4,13 @@
         <meta charset="UTF-8">
         <title>The Ribs Steakhouse</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link href="fontes/openSans" rel="stylesheet">
+        <link href="f
+        ontes/openSans" rel="stylesheet">
         <script type="text/javascript" src="js/jquery-3.2.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
         <script type="text/javascript">
 
             var mysql = require('mysql');
+
             con = mysql.createConnection({
               //host: "10.107.144.13",
               host: "localhost",
@@ -22,10 +24,39 @@
 
             con.connect();
 
+            function selectRestaurante(){
+                var command = "select r.id_restaurante, r.nome as 'nome', r.imagem, r.descricao, concat(coalesce(c.nome, ''), ', ' , "+
+                "coalesce(e.bairro, '') , ', ' , coalesce(e.rua, '') , ', ' , coalesce(e.numero, '') , ' ' , "+
+                "coalesce(e.aptbloco, '')) as 'endereco' from tbl_restaurante as r "+
+                "inner join tbl_endereco as e "+
+                "on r.id_endereco = e.id_endereco "+
+                "inner join tbl_cidade as c "+
+                "on c.id_cidade = e.id_cidade "+
+                "order by r.id_restaurante asc";
+
+                con.query(command, function (err, result, fields) {
+                  if (err) throw err;
+                  var contador = 0;
+                  var resultado = "";
+                  while(contador < result.length){
+                      var nomerestaurante = result[contador].nome,
+                          idrestaurante = result[contador].id_restaurante;
+                      console.log(nomerestaurante);
+                      console.log(idrestaurante);
+                      resultado = resultado + "<a href='preparacao_pedido.ejs'><div onclick='armazenarStorage("+idrestaurante+")' class='btns'><span class='centralizar_texto'>"+nomerestaurante+"</span></div></a>";
+                      contador = contador + 1;
+                  }
+
+                  $("#divBtn").html(resultado)
+
+                });
+            }
+
             var tamanhoJanelaAlturaCorpo;
 
             $(document).ready(function(){
                 configurarTamanhos();
+                selectRestaurante();
             });
 
             function configurarTamanhos(){
@@ -39,6 +70,11 @@
             $(window).resize(function(){
                 configurarTamanhos();
             });
+
+            function armazenarStorage(idres){
+                localStorage.setItem('idrestaurante', idres);
+            }
+
         </script>
     </head>
     <body>
@@ -56,31 +92,6 @@
                 </a>
                 <div id="corpo">
                     <h1>Selecione um restaurante:</h1>
-                    <script>
-                        var command = "select r.id_restaurante, r.nome as 'nome', r.imagem, r.descricao, concat(coalesce(c.nome, ''), ', ' , "+
-                      	"coalesce(e.bairro, '') , ', ' , coalesce(e.rua, '') , ', ' , coalesce(e.numero, '') , ' ' , "+
-                      	"coalesce(e.aptbloco, '')) as 'endereco' from tbl_restaurante as r "+
-                      	"inner join tbl_endereco as e "+
-                      	"on r.id_endereco = e.id_endereco "+
-                      	"inner join tbl_cidade as c "+
-                      	"on c.id_cidade = e.id_cidade "+
-                      	"order by r.id_restaurante asc";
-
-                        con.query(command, function (err, result, fields) {
-                          if (err) throw err;
-                          var contador = 0;
-                          var resultado = "";
-                          while(contador < result.length){
-                              var nomerestaurante = result[contador].nome,
-                                  idrestaurante = result[contador].id_restaurante;
-                              console.log(nomerestaurante);
-                              console.log(idrestaurante);
-                              resultado = resultado + "<a href='preparacao_pedido.ejs?id="+idrestaurante+"'><div class='btns'><span class='centralizar_texto'>"+nomerestaurante+"</span></div></a>";
-                              contador = contador + 1;
-                          }
-                          $("#divBtn").html(resultado)
-                        });
-                    </script>
                     <div id="divBtn">
                     </div>
                 </div>

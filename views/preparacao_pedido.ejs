@@ -6,18 +6,72 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="css/preparacao_pedido.css">
         <link href="fontes/openSans" rel="stylesheet">
+        <script src="http://localhost:8100/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="js/jquery-3.2.1.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
-        <script>
-            // You can also require other files to run in this process
-            require('./renderer.js')
-        </script>
         <script type="text/javascript">
+
+            var socket = io.connect("http://localhost:8100"),
+                ready = false;
+
+            var mysql = require('mysql');
+            con = mysql.createConnection({
+              //host: "10.107.144.13",
+              host: "localhost",
+              //host: "10.107.134.26",
+              //host: "10.107.134.15",
+              user: "root",
+              password: "bcd127",
+              //password: "",
+              database: "dbtheribssh"
+            });
+
+            con.connect();
+
 
             var tamanhoJanelaAlturaCorpo;
 
             $(document).ready(function(){
+
+                var idrestaurante = localStorage.getItem('idrestaurante');
+
+                socket.emit("selectPedidos", idrestaurante);
+                socket.on("resultadoPedido", function(resposta){
+                    $("#div_agrupadoraInfo").html(resposta);
+                });
+
                 configurarTamanhos();
             });
+
+            function abrirInformacoes(idpedido){
+                socket.emit("selectInfoPedido", idpedido);
+                socket.on("resultadoGarcomMesa", function(resposta){
+                    $("#div_nomeGarcomMesa").html(resposta);
+                });
+                socket.on("resultadoProdutoQntd", function(resposta){
+                    $("#div_ingredienteProduto").html(resposta);
+                });
+            }
+
+            function status(_idstatus, _idpedido){
+                socket.emit("mudarStatus", _idstatus, _idpedido);
+            }
+
+            var clique = 0;
+            function mostrarIngrendientes(idproduto){
+                if(clique == 1){
+                    $("#titulo_ingredientes"+idproduto).animate({"height":"0px"});
+                    $("#div_ingredientesNomes"+idproduto).animate({"height":"0px"});
+                    clique = 0;
+                }else{
+                    socket.emit("selectIngredientesProdutos", idproduto);
+                    socket.on("resultadoIngredienteProduto"+idproduto, function(resposta){
+                        clique = 1;
+                        $("#titulo_ingredientes"+idproduto).animate({"height":"40px"});
+                        $("#div_ingredientesNomes"+idproduto).animate({"height":"250px"});
+                        $("#div_ingredientesNomes"+idproduto).html(resposta);
+                    });
+                }
+            }
 
             function configurarTamanhos(){
                 tamanhoJanelaAlturaBody = $(window).height() - $("header").height() - $("footer").height() - ($(window).height() / 100)*2;
@@ -54,30 +108,8 @@
                         <div class="tituloInfo_caixa">
                             <span class="titulo">Em preparação</span>
                         </div>
-                        <!--Informação reduzida pedido-->
-                        <div class="div_infoReduzidaPed" onclick="abrirInformacoes()" title="Ver Informações">
-                            <!--Linha enfeite-->
-                            <div class="linha_esquerda">
-                            </div>
-                            <!--Mesa horário-->
-                            <div class="div_mesaHorario">
-                                <!--Mesa-->
-                                <div class="mesaHorario">
-                                    Mesa 1 - 5 produtos
-                                </div>
-                                <!--Horario-->
-                                <div class="mesaHorario">
-                                    14:54
-                                </div>
-                            </div>
-                            <!--Botão concluido-->
-                            <div class="div_btnConcluir">
-                                <a href="">
-                                    <div class="btnConcluir" title="Concluir pedido">
-                                        <img src="img/pedido_completo.png" alt="">
-                                    </div>
-                                </a>
-                            </div>
+                        <div id="div_agrupadoraInfo">
+
                         </div>
                     </div>
                     <!--Divisor-->
@@ -86,70 +118,10 @@
                     <!--Informações detalhadas pedido-->
                     <div id="info_pedido">
                         <!--Titulo-->
-                        <div class="tituloInfo_caixa">
-                            <!--Titulos-->
-                            <div class="tituloInfo">
-                                <span class="centralizar_texto">Nome do Garçom</span>
-                            </div>
-                            <div class="divisoria">
-                            </div>
-                            <div class="tituloInfoPequeno">
-                                <span class="centralizar_texto">Mesa</span>
-                            </div>
-                            <!--Conteudo-->
-                            <div class="conteudoInfo">
-                                <span class="centralizar_texto">Ata</span>
-                            </div>
-                            <div class="divisoriaB">
-                            </div>
-                            <div class="conteudoInfoPequeno">
-                                <span class="centralizar_texto">1</span>
-                            </div>
-                        </div>
-                        <!--Quantidade e nome do item-->
-                        <div class="tituloInfo_caixa">
-                            <!--Titulos-->
-                            <div class="tituloInfoPequenoQntI">
-                                <span class="centralizar_texto">Quantidade</span>
-                            </div>
-                            <div class="divisoria">
-                            </div>
-                            <div class="tituloInfoQntI">
-                                <span class="centralizar_texto">Nome Produto</span>
-                            </div>
-                            <!--Conteudo-->
-                            <div class="conteudoInfoPequeno">
-                                <span class="centralizar_texto">5</span>
-                            </div>
-                            <div class="divisoriaB">
-                            </div>
-                            <div class="conteudoInfo">
-                                <span class="centralizar_texto">Batata</span>
-                            </div>
+                        <div id="div_nomeGarcomMesa" class="tituloInfo_caixa">
                         </div>
                         <!--Ingredientes-->
-                        <div class="div_ingredientes">
-                            <!--Titulos-->
-                            <div class="tituloIng">
-                                <span class="centralizar_texto">Ingredientes</span>
-                            </div>
-                            <!--Ingredientes contidos-->
-                            <div class="div_ingredientesNomes">
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                                <p>2x Tasl tasdas</p>
-                            </div>
+                        <div  id="div_ingredienteProduto" class="div_ingredientes">
                         </div>
                     </div>
                 </div>
